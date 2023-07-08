@@ -1,0 +1,14 @@
+{
+  "editor.codeActionsOnSave": { // 强制使用 eslint 的规则
+    "source.fixAll": false,
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": false, // 老配置直接改成 false，防止重复格式化
+  "eslint.validate": [ // 对 js 和 vue 进行设置
+    "javascript",
+    "vue"
+  ],
+  "eslint.enable": true, // 开启 eslint
+  "vue.codeActions.savingTimeLimit": 10000, // 增大保存时间提示
+  "eslint.codeActionsOnSave.mode": "problems" // 只修复存在问题的代码，加快修复
+}
