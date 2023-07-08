@@ -12,5 +12,8 @@ export default defineConfig({
     alias: {
       '@': _resolve('./src')
     }
+  },
+  build: {
+    outDir: 'doc'
   }
 })
