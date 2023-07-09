@@ -40,4 +40,4 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }} # 使用刚才创建的 token
           branch: gh-pages # 设置 GitHub Pages 的分支
-          folder: ./docs # 设置发布的源文件夹
+          folder: . # 设置发布的源文件夹
