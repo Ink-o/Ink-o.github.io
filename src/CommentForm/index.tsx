@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Input, message, Tag, Space, Tooltip, Select } from 'antd'
+import { Button, Form, Input, message, Tag, Space, Tooltip, Select, InputNumber } from 'antd'
 import { Card } from 'antd'
 import module from './index.module.scss'
 import { SmileTwoTone } from '@ant-design/icons'
@@ -76,19 +76,30 @@ const App: React.FC = () => {
   const resetTemplate = () => {
     form.setFieldValue('template', defaultTemplate)
   }
-  const showCom = ({ type, disabled, options }: Partial<IFormField>) => {
+  const showCom = (
+    { type, disabled, options, min, max }: Partial<IFormField>,
+  ) => {
     switch (type) {
       case 'input':
         return <Input
           disabled={disabled}
+          allowClear
         />
       case 'textArea':
         return <Input.TextArea
           rows={4}
           disabled={disabled}
+          allowClear
+        />
+      case 'inputNumber':
+        return <InputNumber
+          className={module.w100}
+          disabled={disabled}
+          min={min}
+          max={max}
         />
       case 'select':
-        return <Select disabled={disabled} options={options} />
+        return <Select allowClear showSearch disabled={disabled} options={options} />
     }
   }
   return <>
@@ -112,14 +123,18 @@ const App: React.FC = () => {
         onFinish={generateText}
       >
         {
-          formFields?.map(({ label, name, type, disabled, options }) => {
+          formFields?.map((item) => {
+            const {
+              label,
+              name,
+            } = item
             return <Form.Item
               label={label}
               name={name}
               key={name}
             >
               {
-                showCom({ type, disabled, options })
+                showCom(item)
               }
             </Form.Item>
           })
