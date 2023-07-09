@@ -1,14 +1,43 @@
-name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
-on: [push]
+# name: learn-github-actions
+# run-name: ${{ github.actor }} is learning GitHub Actions
+# on: [push]
+# jobs:
+#   check-bats-version:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3 # 签出代码操作
+#       - uses: actions/setup-node@v3 # 安装 node
+#         with:
+#           node-version: '16.16'
+#       - run: npm install -g bats
+#       - run: bats -v
+#       - run: node -v
+
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  check-bats-version:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v3 # 安装 node
         with:
           node-version: '16.16'
-      - run: npm install -g bats
-      - run: bats -v
-      - run: node -v
+
+      - name: Build
+        run: npm install && npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+
