@@ -13,7 +13,4 @@ export default defineConfig({
       '@': _resolve('./src')
     }
   },
-  build: {
-    outDir: 'docs'
-  }
 })
