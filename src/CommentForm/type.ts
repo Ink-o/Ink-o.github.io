@@ -4,6 +4,8 @@ interface IFormField {
   type: string;
   options: IOption[];
   disabled: boolean,
+  min: number,
+  max: number,
 }
 
 interface IOption {
