@@ -34,10 +34,11 @@ jobs:
 
       - name: Build
         run: npm install && npm run build
-
+        
+      # 将main中打包好的文件夹推送到特定的分支
       - name: Build and Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
-          token: ${{ secrets.GH_TOKEN }} # 使用刚才创建的 token
-          branch: gh-pages # 设置 GitHub Pages 的分支
-          folder: . # 设置发布的源文件夹
+          token: ${{ secrets.GH_TOKEN }} # 使用创建好的 token。在 Developer Settings 中进行设置
+          branch: gh-pages # 设置 GitHub Pages 的分支。也就是要推送资源的目标分支
+          folder: ./docs # 设置要推送的文件夹资源
