@@ -20,7 +20,6 @@ const App: React.FC = () => {
       })
     }
   }
-
   const TagsFileds = [
     {
       label: '{course}：课程名',
