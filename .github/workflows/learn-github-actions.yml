@@ -35,32 +35,8 @@ jobs:
       - name: Build
         run: npm install && npm run build
 
-      # - name: getSecret
-      #   run: echo ${{ secrets.SECRET }}
-      # - name: Deploy to GitHub Pages
-      #   uses: peaceiris/actions-gh-pages@v3
-      #   with:
-      #     github_token: ${{ secrets.SECRET }}
-      #     publish_dir: ./docs
-      # Deployment job
-   # Deploy job
-  deploy:
-    # Add a dependency to the build job
-    needs: build
-
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-
-    # Deploy to the github-pages environment
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    # Specify runner + deployment step
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
+      - name: Build and Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        with:
+          branch: main  # 设置 GitHub Pages 的分支
+          folder: ./docs  # 设置发布的源文件夹
