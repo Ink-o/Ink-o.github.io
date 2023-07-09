@@ -34,7 +34,8 @@ jobs:
 
       - name: Build
         run: npm install && npm run build
-
+        
+      # 将main中打包好的文件夹推送到特定的分支
       - name: Build and Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
