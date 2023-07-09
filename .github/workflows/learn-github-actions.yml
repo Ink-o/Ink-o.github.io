@@ -38,5 +38,5 @@ jobs:
       - name: Build and Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
-          branch: gh-pages  # 设置 GitHub Pages 的分支
-          folder: './docs'  # 设置发布的源文件夹
+          branch: main  # 设置 GitHub Pages 的分支
+          folder: ./docs  # 设置发布的源文件夹
