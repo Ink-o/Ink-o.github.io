@@ -1,78 +1,25 @@
 import React from 'react'
-import { Button, Form, Input, message, Tag, Space, Tooltip  } from 'antd'
+import { Button, Form, Input, message, Tag, Space, Tooltip, Select } from 'antd'
 import { Card } from 'antd'
 import module from './index.module.scss'
 import { SmileTwoTone } from '@ant-design/icons'
+import { joinClassName, copy } from '@/utils'
+import { IFormField } from './type'
+import { defaultTemplate, formFields } from './constent'
 
 const App: React.FC = () => {
   const [form] = Form.useForm()
   const [messageApi, contextHolder] = message.useMessage()
-  const defaultTemplate = '你现在是一名优秀的少儿编程老师，目前所教的课程是{course}，主题是《{topic}》，{courseContent}。现在你要准备一个学生上课的评价。其中{stuComment}。这个评价要在{words}字左右，请你帮忙写出来'
 
   const copyText = (text: string) => {
     return () => {
-      // 创建一个隐藏的文本输入框
-      const textInput = document.createElement('input')
-
-      // 设置要复制的文本内容
-      textInput.value = text
-
-      // 将文本输入框添加到页面中
-      document.body.appendChild(textInput)
-
-      // 选择文本输入框的内容
-      textInput.select()
-      textInput.setSelectionRange(0, 99999)  // 兼容移动设备
-
-      // 执行复制命令
-      document.execCommand('copy')
-
-      // 移除文本输入框
-      document.body.removeChild(textInput)
+      copy(text)
       messageApi.open({
         type: 'success',
         content: '复制成功',
       })
     }
   }
-  const formFields = [
-    {
-      label: '课程名：',
-      name: 'course',
-      type: 'input',
-    },
-    {
-      label: '课程主题：',
-      name: 'courseTopic',
-      type: 'textArea',
-    },
-    {
-      label: '课程内容：',
-      name: 'courseContent',
-      type: 'textArea',
-    },
-    {
-      label: '学生评价：',
-      name: 'stuComment',
-      type: 'textArea',
-    },
-    {
-      label: '评价字数：',
-      name: 'words',
-      type: 'input',
-    },
-    {
-      label: '生成文案：',
-      name: 'genText',
-      type: 'textArea',
-      disabled: true,
-    },
-    {
-      label: '目前模板：',
-      name: 'template',
-      type: 'textArea',
-    },
-  ]
   const TagsFileds = [
     {
       label: '{course}：课程名',
@@ -110,7 +57,7 @@ const App: React.FC = () => {
     let text: string = formValue.template || ''
     keys.forEach(k => {
       const value = formValue[k] || ''
-      text = text.replaceAll(`{${k}}`, value) as string
+      text = text.replaceAll(`{${k}}`, value)
     })
     // 设置模板值
     form.setFieldValue('genText', text)
@@ -128,6 +75,21 @@ const App: React.FC = () => {
   }
   const resetTemplate = () => {
     form.setFieldValue('template', defaultTemplate)
+  }
+  const showCom = ({ type, disabled, options }: Partial<IFormField>) => {
+    switch (type) {
+      case 'input':
+        return <Input
+          disabled={disabled}
+        />
+      case 'textArea':
+        return <Input.TextArea
+          rows={4}
+          disabled={disabled}
+        />
+      case 'select':
+        return <Select disabled={disabled} options={options} />
+    }
   }
   return <>
     {contextHolder}
@@ -150,19 +112,14 @@ const App: React.FC = () => {
         onFinish={generateText}
       >
         {
-          formFields?.map(({ label, name, type, disabled }) => {
+          formFields?.map(({ label, name, type, disabled, options }) => {
             return <Form.Item
               label={label}
               name={name}
               key={name}
             >
               {
-                type === 'input' ? <Input
-                  disabled={disabled}
-                /> : <Input.TextArea
-                  rows={4}
-                  disabled={disabled}
-                />
+                showCom({ type, disabled, options })
               }
             </Form.Item>
           })
@@ -185,20 +142,20 @@ const App: React.FC = () => {
             }
           </Space>
         </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button className={module.mr15} htmlType='submit' type='primary'>
+        <div className={module.btnContainer}>
+          <Button className={joinClassName([module.mr15, module.mb10])} htmlType='submit' type='primary'>
             生成 prompt
           </Button>
-          <Button className={module.mr15} onClick={copyGenText}>
+          <Button className={joinClassName([module.mr15, module.mb10])} onClick={copyGenText}>
             复制 prompt
           </Button>
-          <Button className={module.mr15} danger onClick={resetTemplate}>
+          <Button className={joinClassName([module.mr15, module.mb10])} danger onClick={resetTemplate}>
             重置模板
           </Button>
-          <Button className={module.mr15} danger onClick={resetForm}>
+          <Button className={joinClassName([module.mr15, module.mb10])} danger onClick={resetForm}>
             重置表单
           </Button>
-        </Form.Item>
+        </div>
       </Form>
     </Card>
   </>
