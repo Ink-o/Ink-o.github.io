@@ -26,8 +26,8 @@ const App: React.FC = () => {
       clickCb: copyText('{course}'),
     },
     {
-      label: '{topic}：课程主题',
-      clickCb: copyText('{topic}'),
+      label: '{courseTopic}：课程主题',
+      clickCb: copyText('{courseTopic}'),
     },
     {
       label: '{courseContent}：课程内容',
@@ -49,7 +49,7 @@ const App: React.FC = () => {
   const generateText = (formValue: Record<string, string>) => {
     const keys = [
       'course',
-      'topic',
+      'courseTopic',
       'courseContent',
       'stuComment',
       'words',
