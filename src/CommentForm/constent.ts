@@ -1,4 +1,4 @@
-const defaultTemplate = `你现在是一名优秀的少儿编程老师，目前所教的课程是{course}，主题是《{topic}》，{courseContent}。现在你要准备一个学生上课的评价。其中{stuComment}。这个评价要在{words}字左右，请你帮忙写出来
+const defaultTemplate = `你现在是一名优秀的少儿编程老师，目前所教的课程是{course}，主题是《{courseTopic}》，{courseContent}。现在你要准备一个学生上课的评价。其中{stuComment}。这个评价要在{words}字左右，请你帮忙写出来
 请你模仿下面模板来完成这个评价：
 《高拉背训练》
 各位家长好，我是负责本次授课的陈老师，本次课的主题是wedo2课程《高拉背训练》
