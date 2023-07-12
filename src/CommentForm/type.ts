@@ -6,6 +6,7 @@ interface IFormField {
   disabled: boolean,
   min: number,
   max: number,
+  timeShow: boolean,
 }
 
 interface IOption {

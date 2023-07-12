@@ -69,6 +69,7 @@ const formFields: Partial<IFormField>[] = [
     label: '生成评价：',
     name: 'genContent',
     type: 'textArea',
+    timeShow: true,
   },
 ]
 

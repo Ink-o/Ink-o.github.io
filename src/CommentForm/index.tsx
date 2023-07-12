@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import {
   Button, Form, Input, Tag, Space, Tooltip, Select, InputNumber, Spin,
 } from 'antd'
@@ -14,7 +14,8 @@ import toast from '@/utils/toast'
 
 const App: React.FC = () => {
   const [form] = Form.useForm()
-  const [generating, usegenerating] = useState(false)
+  const [generating, useGenerating] = useState(false)
+  const [costTime, useCostTime] = useState(0)
 
   const copyText = (text: string) => {
     return () => {
@@ -115,23 +116,27 @@ const App: React.FC = () => {
     }
   }
   const generateComment = async() => {
-    usegenerating(true)
+    useGenerating(true)
     // messageApi.open({
     //   type: 'success',
     //   content: '正在生成评价，请稍后',
     // })
     toast('正在生成评价，请稍候')
+    // costTime
+    const beforeTime = Date.now()
     const formItems = form.getFieldsValue() as Record<string, any>
     const question = generatePrompt(formItems, false)
     const { data, code } = await sendMessage({
       question,
     })
+    const afterTime = Date.now()
     if (!isValidCode(code)) {
       // messageApi.open({
       //   type: 'error',
       //   content: '接口请求错误',
       // })
       toast('接口请求错误', 'error')
+      useGenerating(false)
       return
     }
     // messageApi.open({
@@ -140,7 +145,8 @@ const App: React.FC = () => {
     // })
     toast('生成成功！')
     setFieldValue('genContent', data)
-    usegenerating(false)
+    useGenerating(false)
+    useCostTime(afterTime - beforeTime)
   }
 
   return <>
@@ -168,16 +174,27 @@ const App: React.FC = () => {
             const {
               label,
               name,
+              timeShow,
             } = item
-            return <Form.Item
-              label={label}
-              name={name}
-              key={name}
-            >
+            return <Fragment key={name}>
+              <Form.Item
+                label={label}
+                name={name}
+              >
+                {
+                  showCom(item)
+                }
+              </Form.Item>
               {
-                showCom(item)
+                (timeShow && costTime) ? <Form.Item
+                  label='本次生成用时：'
+                >
+                  <div>
+                    <span style={{ 'color': 'red' }}>{costTime}ms</span>
+                  </div>
+                </Form.Item> : null
               }
-            </Form.Item>
+            </Fragment>
           })
         }
         <Form.Item label='模块占位符'>
@@ -200,11 +217,9 @@ const App: React.FC = () => {
         </Form.Item>
         <div className={module.btnContainer}>
           <Spin spinning={generating} size='small'>
-            <div>
-              <Button className={joinClassName([module.mr15, module.mb10])} type='primary' onClick={generateComment}>
-                生成评价
-              </Button>
-            </div>
+            <Button className={joinClassName([module.mr15, module.mb10])} type='primary' onClick={generateComment}>
+              生成评价
+            </Button>
           </Spin>
           <Button className={joinClassName([module.mr15, module.mb10])} htmlType='submit' type='primary'>
             生成 prompt
