@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-  Button, Form, Input, message, Tag, Space, Tooltip, Select, InputNumber, Spin,
+  Button, Form, Input, Tag, Space, Tooltip, Select, InputNumber, Spin,
 } from 'antd'
 import { Card } from 'antd'
 import module from './index.module.scss'
@@ -15,7 +15,6 @@ import toast from '@/utils/toast'
 const App: React.FC = () => {
   const [form] = Form.useForm()
   const [generating, usegenerating] = useState(false)
-  const [messageApi, contextHolder] = message.useMessage()
 
   const copyText = (text: string) => {
     return () => {
