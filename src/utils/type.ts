@@ -7,7 +7,10 @@ interface IResult<T> {
   data: T,
 }
 
+type IToastType = 'success' | 'error' | 'info' | 'warning' | 'loading'
+
 export type {
   IAnybject,
   IResult,
+  IToastType,
 }

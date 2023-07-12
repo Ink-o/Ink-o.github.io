@@ -10,6 +10,7 @@ import { IFormField } from './type'
 import { defaultTemplate, formFields } from './constent'
 import { sendMessage } from './service'
 import { isValidCode } from '@/utils/rest'
+import toast from '@/utils/toast'
 
 const App: React.FC = () => {
   const [form] = Form.useForm()
@@ -19,10 +20,11 @@ const App: React.FC = () => {
   const copyText = (text: string) => {
     return () => {
       copy(text)
-      messageApi.open({
-        type: 'success',
-        content: '复制成功',
-      })
+      // messageApi.open({
+      //   type: 'success',
+      //   content: '复制成功',
+      // })
+      toast('复制成功')
     }
   }
   const TagsFileds = [
@@ -66,10 +68,11 @@ const App: React.FC = () => {
     })
     // 设置模板值
     form.setFieldValue('genPrompt', text)
-    needTips && messageApi.open({
-      type: 'success',
-      content: '生成 Prompt 成功',
-    })
+    // needTips && messageApi.open({
+    //   type: 'success',
+    //   content: '生成 Prompt 成功',
+    // })
+    needTips && toast('生成 Prompt 成功')
     return text
   }
   const copyTextFieldText = (key: string) => {
@@ -114,32 +117,35 @@ const App: React.FC = () => {
   }
   const generateComment = async() => {
     usegenerating(true)
-    messageApi.open({
-      type: 'success',
-      content: '正在生成评价，请稍后',
-    })
+    // messageApi.open({
+    //   type: 'success',
+    //   content: '正在生成评价，请稍后',
+    // })
+    toast('正在生成评价，请稍候')
     const formItems = form.getFieldsValue() as Record<string, any>
     const question = generatePrompt(formItems, false)
     const { data, code } = await sendMessage({
       question,
     })
     if (!isValidCode(code)) {
-      messageApi.open({
-        type: 'error',
-        content: '接口请求错误',
-      })
+      // messageApi.open({
+      //   type: 'error',
+      //   content: '接口请求错误',
+      // })
+      toast('接口请求错误', 'error')
       return
     }
-    messageApi.open({
-      type: 'success',
-      content: '生成成功！',
-    })
+    // messageApi.open({
+    //   type: 'success',
+    //   content: '生成成功！',
+    // })
+    toast('生成成功！')
     setFieldValue('genContent', data)
     usegenerating(false)
   }
 
   return <>
-    {contextHolder}
+    {/* {contextHolder} */}
     <Card
       className={module.cardContainer}
       title={
