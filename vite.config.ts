@@ -10,7 +10,7 @@ export default defineConfig({
   base: './', // 以相对路径为请求资源
   resolve: {
     alias: {
-      '@': _resolve('./src')
-    }
+      '@': _resolve('./src'),
+    },
   },
 })

@@ -55,14 +55,19 @@ const formFields: Partial<IFormField>[] = [
     min: 1,
   },
   {
-    label: '生成文案：',
-    name: 'genText',
+    label: '生成 Prompt：',
+    name: 'genPrompt',
     type: 'textArea',
     disabled: true,
   },
   {
     label: '目前模板：',
     name: 'template',
+    type: 'textArea',
+  },
+  {
+    label: '生成评价：',
+    name: 'genContent',
     type: 'textArea',
   },
 ]

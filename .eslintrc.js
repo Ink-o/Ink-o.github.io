@@ -248,13 +248,14 @@ module.exports = {
       },
     ],
     'array-bracket-spacing': [2, 'never'],
-    'vue/attribute-hyphenation': 'off',
     'require-atomic-updates': 'off',
-    // 尖括号新开一行会导致html无法折叠, 改为不检查
-    'vue/html-closing-bracket-newline': 'off',
     '@typescript-eslint/no-floating-promises': 0,
     '@typescript-eslint/no-unsafe-assignment': 0,
     '@typescript-eslint/no-unsafe-call': 0,
     '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/no-unsafe-return': 0,
+    '@typescript-eslint/no-non-null-asserted-optional-chain': 0,
+    '@typescript-eslint/no-non-null-assertion': 0,
+    '@typescript-eslint/no-misused-promises': 0,
   },
 }

@@ -13,6 +13,11 @@ interface IOption {
   label: string;
 }
 
+interface ISendMessageParams {
+  question: string
+}
+
 export type {
   IFormField,
+  ISendMessageParams,
 }
