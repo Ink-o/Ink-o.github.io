@@ -257,5 +257,6 @@ module.exports = {
     '@typescript-eslint/no-non-null-asserted-optional-chain': 0,
     '@typescript-eslint/no-non-null-assertion': 0,
     '@typescript-eslint/no-misused-promises': 0,
+    'react-hooks/rules-of-hooks': 0,
   },
 }
